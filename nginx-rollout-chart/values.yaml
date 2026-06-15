@@ -1,0 +1,15 @@
+appName: nginx-rollout
+
+appLabel: nginx
+
+replicas: 2
+
+activeService: nginx-active
+
+previewService: nginx-preview
+
+message: GREEN LIVE VERSION
+
+image:
+  repository: hashicorp/http-echo
+  tag: latest

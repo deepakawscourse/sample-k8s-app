@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ .Values.appName }}
+spec:
+  replicas: {{ .Values.replicas }}
+
+  strategy:
+    blueGreen:
+      activeService: {{ .Values.activeService }}
+      previewService: {{ .Values.previewService }}
+      autoPromotionEnabled: false
+
+  selector:
+    matchLabels:
+      app: {{ .Values.appLabel }}
+
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appLabel }}
+    spec:
+      containers:
+      - name: nginx
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        args:
+        - "-text={{ .Values.message }}"
+        ports:
+        - containerPort: 5678
