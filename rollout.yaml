@@ -24,6 +24,6 @@ spec:
       - name: nginx
         image: hashicorp/http-echo
         args:
-        - "-text=GREEN LIVE VERSION"
+        - "-text=BLUE LIVE VERSION"
         ports:
         - containerPort: 5678
