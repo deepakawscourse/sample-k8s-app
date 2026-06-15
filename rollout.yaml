@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: nginx-rollout
+spec:
+  replicas: 2
+
+  strategy:
+    blueGreen:
+      activeService: nginx-active
+      previewService: nginx-preview
+      autoPromotionEnabled: false
+
+  selector:
+    matchLabels:
+      app: nginx
+
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: hashicorp/http-echo
+        args:
+        - "-text=GREEN LIVE VERSION"
+        ports:
+        - containerPort: 5678
