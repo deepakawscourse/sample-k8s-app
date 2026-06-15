@@ -16,6 +16,8 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:1.25
+        image: hashicorp/http-echo
+        args:
+        - "-text=BLUE VERSION"
         ports:
-        - containerPort: 80
+        - containerPort: 5678
